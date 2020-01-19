@@ -174,7 +174,7 @@ class _DigitalClockState extends State<DigitalClock>
           Colors.brown[200],
           Colors.brown[300],
           Colors.brown[500],
-          Colors.black
+          Colors.black,
         ],
       ),
     );
@@ -347,7 +347,7 @@ class _DigitalClockState extends State<DigitalClock>
                         style: Theme.of(context).brightness == Brightness.light
                             ? lightSecondaryCoffeTextStyle
                             : secondaryCoffeTextStyle,
-                      )
+                      ),
                     ],
                   ),
                 ),
