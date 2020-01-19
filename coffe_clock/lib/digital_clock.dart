@@ -88,7 +88,6 @@ class _DigitalClockState extends State<DigitalClock>
   Widget build(BuildContext context) {
     ScreenUtil.init(context, allowFontScaling: true, width: 1920, height: 1080);
 
-
     //variables used in the view
     final hour =
         DateFormat(widget.model.is24HourFormat ? 'HH' : 'hh').format(_dateTime);
@@ -97,13 +96,15 @@ class _DigitalClockState extends State<DigitalClock>
     final day = DateFormat('d').format(_dateTime);
     final month = DateFormat('MMM').format(_dateTime);
     final place = widget.model.location;
+    final bool is24 = widget.model.is24HourFormat;
+    final ampm = DateFormat('a').format(_dateTime);
     final _condition = widget.model.weatherString;
     final double _temperature = widget.model.unit == TemperatureUnit.celsius
         ? widget.model.temperature
         : ftc(widget.model.temperature);
     final _temperatureExpression =
         _temperature > 25 ? "hot" : _temperature < 15 ? "cold" : "cozy";
-    
+
     //The expression used depending the weather
     var _extension;
     switch (_condition) {
@@ -131,7 +132,8 @@ class _DigitalClockState extends State<DigitalClock>
             "to tell you that there is a lot of wind outside! If you go out, please be careful :)";
         break;
       default:
-        _extension = "to tell you that today is another great day to follow your dreams!";
+        _extension =
+            "to tell you that today is another great day to follow your dreams!";
     }
 
     final darkCoffe = BoxDecoration(
@@ -207,7 +209,7 @@ class _DigitalClockState extends State<DigitalClock>
         fontSize: ScreenUtil().setSp(50, allowFontScalingSelf: true),
         fontFamily: 'SpecialElite',
         shadows: [
- Shadow(
+          Shadow(
             blurRadius: 2,
             color: Colors.black,
             offset: Offset(0.2, 0.2),
@@ -319,11 +321,26 @@ class _DigitalClockState extends State<DigitalClock>
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        hour + ":" + minute,
-                        style: Theme.of(context).brightness == Brightness.light
-                            ? lightCoffeTextStyle
-                            : coffeTextStyle,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            hour + ":" + minute,
+                            style:
+                                Theme.of(context).brightness == Brightness.light
+                                    ? lightCoffeTextStyle
+                                    : coffeTextStyle,
+                          ),
+                          is24 == true
+                              ? Container()
+                              : Text(
+                                  " "+ampm,
+                                  style: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? lightSecondaryCoffeTextStyle
+                                      : secondaryCoffeTextStyle,
+                                )
+                        ],
                       ),
                       Text(
                         weekDay + ", " + day + " " + month,
@@ -350,7 +367,9 @@ class _DigitalClockState extends State<DigitalClock>
                                   .setSp(50, allowFontScalingSelf: true),
                             )),
                         Text(
-                            (_condition != 'foggy') && (_condition != 'snowy') && (_condition != 'windy')
+                            (_condition != 'foggy') &&
+                                    (_condition != 'snowy') &&
+                                    (_condition != 'windy')
                                 ? " I'm writing here, from " +
                                     place +
                                     " on this " +

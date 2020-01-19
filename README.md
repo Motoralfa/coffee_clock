@@ -8,4 +8,4 @@ See [flutter.dev/clock](https://flutter.dev/clock) for how to get started, submi
 
 Example [Coffe Clock](analog_clock)
 
-<img src='analog_clock/analog.gif' width='350'>
+<img src='coffe_clock/coffe_clock.gif' width='350'>
