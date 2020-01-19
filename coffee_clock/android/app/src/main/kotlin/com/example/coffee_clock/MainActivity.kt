@@ -1,4 +1,4 @@
-package com.example.coffe_clock
+package com.example.coffee_clock
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
